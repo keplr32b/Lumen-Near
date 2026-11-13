@@ -12,15 +12,15 @@
     "next": "15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "near-api-js": "^5.0.0",
-    "@near-wallet-selector/core": "^8.9.0",
-    "@near-wallet-selector/modal-ui": "^8.9.0",
-    "@near-wallet-selector/my-near-wallet": "^8.9.0",
-    "framer-motion": "^11.15.0",
-    "lucide-react": "^0.468.0",
+    "near-api-js": "^4.0.0",
+    "@near-wallet-selector/core": "^8.9.1",
+    "@near-wallet-selector/modal-ui": "^8.9.1",
+    "@near-wallet-selector/my-near-wallet": "^8.9.1",
+    "framer-motion": "^11.11.0",
+    "lucide-react": "^0.460.0",
     "clsx": "^2.1.1",
-    "tailwind-merge": "^2.6.0",
-    "class-variance-authority": "^0.7.1"
+    "tailwind-merge": "^2.5.4",
+    "class-variance-authority": "^0.7.0"
   },
   "devDependencies": {
     "@types/node": "^20",
