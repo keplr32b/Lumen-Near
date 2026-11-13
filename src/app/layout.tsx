@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "@near-wallet-selector/modal-ui/styles.css";
 
 export const metadata: Metadata = {
   title: "Lumen — Private AI Companion on NEAR",
-  description: "Your private AI companion NFT that can think and spend under your rules",
+  description:
+    "Your private AI companion NFT that can think and spend under your rules. Powered by NEAR AI TEEs + Intents.",
 };
 
 export default function RootLayout({
