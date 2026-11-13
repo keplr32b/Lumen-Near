@@ -14,7 +14,7 @@ export default function Chat() {
     {
       role: "assistant",
       content:
-        "Hello. I am Lumen. Your private companion on NEAR. Everything we say stays inside a Trusted Execution Environment. How can I help you today?",
+        "Hello. I am Lumen — your private companion on NEAR. Everything we say can stay inside a Trusted Execution Environment. How can I help you today?",
     },
   ]);
   const [input, setInput] = useState("");
@@ -34,20 +34,25 @@ export default function Chat() {
     setLoading(true);
 
     try {
-      // For now we use a mock. Later we will connect real NEAR AI Cloud.
-      // This keeps the demo working even without API key.
-      await new Promise((r) => setTimeout(r, 1200));
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: [...messages, { role: "user", content: userMessage }],
+        }),
+      });
 
-      const reply =
-        "I received your message. In the full version this response comes from a private model running inside a TEE on NEAR AI Cloud. Your conversation never leaves the secure enclave.";
-
-      setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
+      const data = await res.json();
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: data.reply },
+      ]);
     } catch (e) {
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content: "Something went wrong. Please try again.",
+          content: "Connection issue. Please try again in a moment.",
         },
       ]);
     } finally {
@@ -56,7 +61,7 @@ export default function Chat() {
   }
 
   return (
-    <div className="flex flex-col h-[520px] bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+    <div className="flex flex-col h-[540px] bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
       {/* Header */}
       <div className="px-4 py-3 border-b border-white/10 flex items-center gap-2">
         <div className="w-7 h-7 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center">
@@ -64,7 +69,7 @@ export default function Chat() {
         </div>
         <div>
           <div className="text-sm font-medium">Lumen</div>
-          <div className="text-xs text-white/40">Private • TEE Protected</div>
+          <div className="text-xs text-white/40">Private • TEE Ready</div>
         </div>
       </div>
 
@@ -107,7 +112,7 @@ export default function Chat() {
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+            onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
             placeholder="Message Lumen privately..."
             className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-2.5 text-sm outline-none focus:border-violet-500/50 transition"
           />
