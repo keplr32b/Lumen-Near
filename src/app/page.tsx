@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sparkles, MessageCircle, Shield, Wallet } from "lucide-react";
+import { Sparkles, Shield, Wallet } from "lucide-react";
 import WalletButton from "@/components/WalletButton";
 import Chat from "@/components/Chat";
+import CompanionPanel from "@/components/CompanionPanel";
 
 export default function Home() {
   return (
@@ -20,74 +21,95 @@ export default function Home() {
       </header>
 
       {/* Hero */}
-      <section className="max-w-4xl mx-auto px-6 py-16 text-center">
+      <section className="max-w-5xl mx-auto px-6 pt-14 pb-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
         >
-          <div className="inline-flex items-center gap-2 bg-violet-500/10 border border-violet-500/20 text-violet-300 text-sm px-3 py-1 rounded-full mb-6">
+          <div className="inline-flex items-center gap-2 bg-violet-500/10 border border-violet-500/20 text-violet-300 text-sm px-3 py-1 rounded-full mb-5">
             <Shield size={14} />
             Private AI • NEAR Intents • NFT Companion
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
-            Your Private
-            <br />
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+            Your Private{" "}
             <span className="bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
               AI Companion
             </span>
           </h1>
 
-          <p className="text-lg text-white/60 max-w-xl mx-auto mb-10">
+          <p className="text-white/55 max-w-xl mx-auto text-base">
             Lumen lives as an NFT on NEAR. It can privately think, remember, and
             spend — under hard limits only you control.
           </p>
         </motion.div>
       </section>
 
-      {/* Chat Section */}
-      <section className="max-w-2xl mx-auto px-6 pb-20">
-        <Chat />
-        <p className="text-center text-white/30 text-xs mt-4">
-          Demo mode — responses are simulated. Real TEE private inference coming next.
-        </p>
+      {/* Main Content */}
+      <section className="max-w-5xl mx-auto px-6 pb-20">
+        <div className="grid lg:grid-cols-[1fr_320px] gap-6">
+          {/* Chat */}
+          <div>
+            <Chat />
+            <p className="text-center text-white/25 text-xs mt-3">
+              Demo mode — responses simulated. Real TEE private inference can be connected with NEAR AI key.
+            </p>
+          </div>
+
+          {/* Side Panel */}
+          <div className="space-y-4">
+            <CompanionPanel />
+
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-5">
+              <h3 className="font-medium mb-3 text-sm">Quick Actions</h3>
+              <div className="space-y-2">
+                <button className="w-full text-left text-sm bg-white/5 hover:bg-white/10 transition rounded-xl px-4 py-2.5">
+                  Mint your own Lumen
+                </button>
+                <button className="w-full text-left text-sm bg-white/5 hover:bg-white/10 transition rounded-xl px-4 py-2.5">
+                  Set spending limit
+                </button>
+                <button className="w-full text-left text-sm bg-white/5 hover:bg-white/10 transition rounded-xl px-4 py-2.5">
+                  Feed with NEAR
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Features */}
-      <section className="max-w-5xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-6 border-t border-white/10">
+      <section className="max-w-5xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-5 border-t border-white/10">
         {[
           {
-            icon: <Shield className="text-violet-400" size={24} />,
+            icon: <Shield className="text-violet-400" size={22} />,
             title: "Private by Design",
             desc: "Conversations run inside NEAR AI Trusted Execution Environments. Your data never leaves the secure enclave.",
           },
           {
-            icon: <Wallet className="text-fuchsia-400" size={24} />,
+            icon: <Wallet className="text-fuchsia-400" size={22} />,
             title: "Can Actually Spend",
             desc: "Lumen can hold value and execute cross-chain actions via NEAR Intents with limits you set.",
           },
           {
-            icon: <Sparkles className="text-pink-400" size={24} />,
+            icon: <Sparkles className="text-pink-400" size={22} />,
             title: "Lives as an NFT",
             desc: "True ownership. Transferable. Evolves with use. Not just a picture — an agent with agency.",
           },
         ].map((f, i) => (
-          <motion.div
+          <div
             key={i}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 + i * 0.1 }}
-            className="bg-white/5 border border-white/10 rounded-2xl p-6"
+            className="bg-white/5 border border-white/10 rounded-2xl p-5"
           >
-            <div className="mb-4">{f.icon}</div>
-            <h3 className="font-semibold text-lg mb-2">{f.title}</h3>
+            <div className="mb-3">{f.icon}</div>
+            <h3 className="font-semibold mb-1.5">{f.title}</h3>
             <p className="text-white/50 text-sm leading-relaxed">{f.desc}</p>
-          </motion.div>
+          </div>
         ))}
       </section>
 
-      <footer className="border-t border-white/10 py-8 text-center text-white/40 text-sm">
+      <footer className="border-t border-white/10 py-8 text-center text-white/35 text-sm">
         Built for NEAR Hackathon 2026 • Tracks: NFTs + Privacy + Agents + Security
       </footer>
     </main>
